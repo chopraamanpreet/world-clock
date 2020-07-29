@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:worldclock/services/world_time.dart';
 
@@ -14,11 +15,12 @@ class _LoadingState extends State<Loading> {
   void getWorldTime() async {
     WorldTime instance=WorldTime(location: 'India',flag: 'india.png',api: 'Asia/Kolkata');
     await instance.getTime();
-    time=instance.time;
-    print('Time in India: $time');
-  setState(() {
-    time=instance.time;
-  });
+
+    Navigator.pushReplacementNamed(context, '/home',arguments: {
+      'location':instance.location,
+      'flag':instance.flag,
+      'time':instance.time
+    });
   }
 
 @override
@@ -33,7 +35,7 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(40.0),
-        child: Text("Time in India: $time")
+        child: Text("Loading")
       ),
     );
   }
