@@ -8,6 +8,7 @@ class WorldTime{
   String flag;
   String api;
   String time;
+  bool isDayTime;
 
   WorldTime({ this.location,this.flag,this.api });
 
@@ -29,8 +30,9 @@ class WorldTime{
         //print(result);
 
         DateTime now= DateTime.parse(datetime);
-        print('now $now');
         now=now.add(Duration(hours:int.parse(offset)));
+        isDayTime= now.hour>6 && now.hour <20  ? true : false;
+        print('now $now $isDayTime');
         print('Current Time $now');
         
         time=DateFormat.jm().format(now);
