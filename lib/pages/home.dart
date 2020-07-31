@@ -10,7 +10,8 @@ class _HomeState extends State<Home> {
   Map data={};
   @override
   Widget build(BuildContext context) {
-    data=ModalRoute.of(context).settings.arguments;
+
+    data=data.isEmpty ? ModalRoute.of(context).settings.arguments:data;
     print(data);
 
     String bgImg = data['isDayTime'] ? 'https://thumbs.dreamstime.com/b/vertical-nature-scene-landscape-countryside-forest-view-blank-sky-daytime-illustration-190084572.jpg':'https://i.pinimg.com/originals/b7/f1/1b/b7f11b9f0a9b9cfb9a2577a8eaa08ab1.jpg';
@@ -31,8 +32,17 @@ class _HomeState extends State<Home> {
             child: Column(
               children: <Widget>[
                 FlatButton.icon(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/location');
+                  onPressed: () async{
+                    dynamic result = await Navigator.pushNamed(context, '/location');
+                    setState(() {
+                      data={
+                          'location':result['location'],
+                          'flag':result['flag'],
+                          'time':result['time'],
+                          'isDayTime':result['isDayTime']
+                      };
+                     
+                    });
                   }, 
                   icon: Icon(Icons.edit_location), 
                   label: Text('Edit Location')

@@ -22,15 +22,21 @@ class WorldTime{
 
         Map result=jsonDecode(response.body);
         String datetime=result['datetime'];
-        String offset=result['utc_offset'].substring(1,3);
+        
+        
+        String offseth=result['utc_offset'].substring(1,3);
+
+    
+
 
         print(datetime);
-        print(offset);
+        print(offseth);
+        
 
         //print(result);
 
         DateTime now= DateTime.parse(datetime);
-        now=now.add(Duration(hours:int.parse(offset)));
+        now=now.add(Duration(hours:int.parse(offseth)));
         isDayTime= now.hour>6 && now.hour <20  ? true : false;
         print('now $now $isDayTime');
         print('Current Time $now');
